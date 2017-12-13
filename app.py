@@ -5,7 +5,7 @@ import json
 import requests
 from flask import Flask, request
 
-from brain import process_message
+from message_parser import process_message
 
 app = Flask(__name__)
 
@@ -26,6 +26,8 @@ def verify():
 def webhook():
 
     # endpoint for processing incoming messaging events
+    message_type = "text"
+    message_body =''
 
     data = request.get_json()
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
@@ -71,7 +73,7 @@ def webhook():
 
 
 def build_message(response):
-    if type(response) is str or type(response) is unicode:
+    if type(response) is str:
         return dict(text=response)
 
     if type(response) == dict and "quick_replies" in response.keys():
