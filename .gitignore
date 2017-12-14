@@ -1,1 +1,3 @@
 *.pyc
+coinmarketcap_cache.sqlite
+__pycache__
